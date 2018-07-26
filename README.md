@@ -1,24 +1,18 @@
-# README
+# Doctor
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Un appointment ne peut avoir qu'un seul doctor, mais un doctor peut avoir plusieurs appointment. Un appointment ne peut avoir qu'un seul patient, mais un patient peut avoir plusieurs appointment. Enfin, un doctor peut avoir plusieurs patient, au travers des appointments, et vice versa.
 
-Things you may want to cover:
 
-* Ruby version
+#Exercice
 
-* System dependencies
+"Un appointment ne peut avoir qu'un seul doctor, mais un doctor peut avoir plusieurs appointment. Un appointment ne peut avoir qu'un seul patient, mais un patient peut avoir plusieurs appointment. Enfin, un doctor peut avoir plusieurs patient, au travers des appointments, et vice versa." 
 
-* Configuration
+Aller dans le dossier 'doctor' puis entrer la commande :
 
-* Database creation
+Installation des gems nécéssaires $ bundle install
 
-* Database initialization
+$rails db:migrate (pour créer votre base de données)
 
-* How to run the test suite
+$rails db:seed (pour remplir votre base de données)
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Projet réalisé par Laetitia69
