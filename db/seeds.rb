@@ -7,17 +7,19 @@ require 'faker'
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-#affiche 10 fakes doctors
 10.times do
-	doctor = Doctor.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, specialty: Faker::Commerce.material, postal_code: Faker::Address.postcode)
-end
+	#affiche 10 fakes doctors
+	doctor = Doctor.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, postal_code: Faker::Address.postcode)
 
-#affiche 10 fakes patients
-10.times do
+	#affiche 10 fakes patients
 	patient = Patient.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name)
-end
 
-#affiche 10 fakes appointments
-10.times do
+	#affiche 10 fakes appointments
 	appointment = Appointment.create(doctor_id: rand(1..10), patient_id: rand(1..10),date: Faker::Time.between(DateTime.now - 1, DateTime.now))
+
+	#affiche 10 fakes cities
+	city = City.create(name: Faker::Address.city)
+
+	#affiche 10 fakes specialties
+	specialty = Specialty.create(name: Faker::Cat.name)	
 end
