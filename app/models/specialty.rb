@@ -1,4 +1,4 @@
 class Specialty < ApplicationRecord
-	#possède plusieurs :
-	has_many :doctors
+	#appartient ET possède plusieurs :
+	has_and_belongs_to_many :doctors
 end

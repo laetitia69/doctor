@@ -6,20 +6,76 @@ require 'faker'
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+@doctors      = []
+@patients     = []
+@appointments = []
+@cities       = []
+@specilties   = []
 
-10.times do
-	#affiche 10 fakes doctors
-	doctor = Doctor.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, postal_code: Faker::Address.postcode)
+def clean_database
+  puts " Etape 0 : Suppression des anciennes données."    
+  Doctor.delete_all
+  Patient.delete_all
+  Appointment.delete_all 
+  City.delete_all 
+  Specialty.delete_all
+    
+end 
 
-	#affiche 10 fakes patients
-	patient = Patient.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name)
+def create_city(number)
+  puts " Etape 1 : Création de #{number} cities"    
 
-	#affiche 10 fakes appointments
-	appointment = Appointment.create(doctor_id: rand(1..10), patient_id: rand(1..10),date: Faker::Time.between(DateTime.now - 1, DateTime.now))
-
-	#affiche 10 fakes cities
-	city = City.create(name: Faker::Address.city)
-
-	#affiche 10 fakes specialties
-	specialty = Specialty.create(name: Faker::Cat.name)	
+    number.times do
+      @cities << City.create(city_name: Faker::Address.city)
+    end
 end
+
+def create_specialty(number)
+  puts " Etape 2  : Création de #{number} specialty"    
+
+    number.times do
+      @specilties << Specialty.create(name: Faker::Military.army_rank)
+    end
+end
+
+def create_doctor(number)
+  puts " Etape 3 : Création de #{number} docteurs."    
+
+    number.times do
+    doctor = Doctor.create(first_name: Faker::Company.name,last_name: Faker::Company.name, postal_code: Faker::Address.zip,city: @cities[Random.new.rand(0..@cities.size-1)])
+        
+      2.times do
+        doctor.specialties << (@specilties[Random.new.rand(0..@specilties.size-1)])
+      end 
+        
+    @doctors << doctor    
+        
+    end
+end
+
+def create_patient(number)
+  puts " Etape 4 : Création de #{number} patients."    
+
+    number.times do
+      @patients << Patient.create(first_name: Faker::Company.name,last_name: Faker::Company.name,city: @cities[Random.new.rand(0..@cities.size-1)])
+
+    end
+end
+
+def create_appointment(number)
+  puts " Etape 5 : Création de #{number} rendez-vous."    
+
+    number.times do
+      @appointments << Appointment.create(doctor: @doctors[Random.new.rand(0..@doctors.size-1)], patient: @patients[Random.new.rand(0..@patients.size-1)], date: Faker::Time.between(DateTime.now - 1, DateTime.now),city: @cities[Random.new.rand(0..@cities.size-1)])
+    end
+end
+
+puts "-------------------------- *** ---------------------------------"
+puts "Bonjour, nous allons créer un jeu de test pour tester nos Models"
+clean_database
+create_city(10)
+create_specialty(5)
+create_doctor(10)
+create_patient(10)
+create_appointment(5)
+puts "-------------------------- FIN ---------------------------------"
